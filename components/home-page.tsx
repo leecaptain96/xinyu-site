@@ -14,6 +14,7 @@ function usePortfolioMotion(root: React.RefObject<HTMLDivElement | null>) {
     if (!root.current) return;
     gsap.registerPlugin(ScrollTrigger);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const cleanups: Array<() => void> = [];
     const context = gsap.context(() => {
       const curtain = document.querySelector<HTMLElement>(".opening-curtain");
       if (reduced) {
@@ -51,14 +52,50 @@ function usePortfolioMotion(root: React.RefObject<HTMLDivElement | null>) {
           gsap.fromTo(image, { yPercent: 3 }, { yPercent: -3, ease: "none", scrollTrigger: { trigger: image, start: "top bottom", end: "bottom top", scrub: 1.2 } });
         });
       });
+
+      ScrollTrigger.create({ start: 0, end: "max", onUpdate: (self) => gsap.set(".reading-progress__bar", { scaleX: self.progress }) });
+
+      const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]'));
+      sections.forEach((section) => {
+        if (!section.id) return;
+        const setActive = () => navLinks.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${section.id}`));
+        ScrollTrigger.create({ trigger: section, start: "top 42%", end: "bottom 42%", onEnter: setActive, onEnterBack: setActive });
+      });
+
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        document.querySelectorAll<HTMLElement>(".btn-dark,.btn-light,.btn-ghost,.btn-line").forEach((button) => {
+          const move = (event: PointerEvent) => {
+            const box = button.getBoundingClientRect();
+            gsap.to(button, { x: (event.clientX - box.left - box.width / 2) * .16, y: (event.clientY - box.top - box.height / 2) * .16, duration: .45, ease: "power3.out", overwrite: true });
+          };
+          const leave = () => gsap.to(button, { x: 0, y: 0, duration: .7, ease: "power4.out", overwrite: true });
+          button.addEventListener("pointermove", move);
+          button.addEventListener("pointerleave", leave);
+          cleanups.push(() => { button.removeEventListener("pointermove", move); button.removeEventListener("pointerleave", leave); });
+        });
+
+        document.querySelectorAll<HTMLElement>(".section article,[data-motion-card]").forEach((card) => {
+          const illuminate = (event: PointerEvent) => {
+            const box = card.getBoundingClientRect();
+            card.style.setProperty("--pointer-x", `${event.clientX - box.left}px`);
+            card.style.setProperty("--pointer-y", `${event.clientY - box.top}px`);
+          };
+          card.addEventListener("pointermove", illuminate);
+          cleanups.push(() => card.removeEventListener("pointermove", illuminate));
+        });
+      }
       requestAnimationFrame(() => ScrollTrigger.refresh());
     }, root);
-    return () => context.revert();
+    return () => { cleanups.forEach((cleanup) => cleanup()); context.revert(); };
   }, [root]);
 }
 
 function OpeningCurtain() {
   return <div className="opening-curtain" aria-hidden="true"><div><span className="opening-curtain__brand">SHI XINYU</span><i className="opening-curtain__rule"/><small>BUSINESS · CONTENT · CONNECTION</small></div></div>;
+}
+
+function ReadingProgress() {
+  return <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar"/></div>;
 }
 
 function MotionWord({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
@@ -213,4 +250,4 @@ function Cases() { return <section className="section bg-paper"><MotionWord>CASE
 function Contact() { return <section id="contact" className="section relative overflow-hidden bg-[#161d19] text-white"><MotionWord light>CONTACT</MotionWord><DarkConnections/><div className="absolute -right-32 -top-40 h-[520px] w-[520px] rounded-full border border-white/10"/><div className="wrap relative grid gap-14 lg:grid-cols-[.85fr_1.15fr]"><Reveal><Kicker light>CONTACT · 联系我</Kicker><h2 className="title text-white">让合作，<br/><em className="text-[#aebcaf]">从一次认真沟通开始。</em></h2><p className="mt-7 max-w-lg text-sm leading-7 text-white/55">无论你需要的是企业客户沟通、内容表达、短视频获客、法律服务前期沟通，还是项目资源匹配，都可以从一次清晰的需求沟通开始。</p><div className="mt-12 space-y-4 border-t border-white/10 pt-8 text-sm"><p><span className="inline-block w-20 text-white/35">姓名</span>石新雨</p><p><span className="inline-block w-20 text-white/35">电话</span><a href="tel:15595750608">15595750608</a></p><p><span className="inline-block w-20 text-white/35">邮箱</span><a href="mailto:2736225743@qq.com">2736225743@qq.com</a></p><p><span className="inline-block w-20 text-white/35">所在地</span>海口</p></div></Reveal>
   <Reveal delay={.1}><form className="rounded-[2rem] border border-white/10 bg-white/[.05] p-6 md:p-9" onSubmit={e=>e.preventDefault()}><div className="grid gap-4 sm:grid-cols-2"><label>企业名称<input placeholder="请输入企业或个人名称"/></label><label>所属行业<input placeholder="例如：餐饮 / 企业服务"/></label><label>需求类型<select defaultValue=""><option value="" disabled>请选择合作方向</option>{["法律服务沟通","短视频内容制作","企业个人 IP","企业客户开发","项目资源匹配","其他合作"].map(x=><option key={x}>{x}</option>)}</select></label><label>联系方式<input placeholder="手机 / 微信"/></label><label className="sm:col-span-2">当前业务问题<textarea rows={4} placeholder="请简单描述目前的问题与目标"/></label><label className="sm:col-span-2">预算范围（可选）<input placeholder="可先留空，沟通后判断"/></label></div><div className="mt-6 flex flex-wrap gap-3"><a href="mailto:2736225743@qq.com?subject=官网合作咨询" className="btn-light">发起合作咨询 <Arrow/></a><a href="#videos" className="btn-ghost"><Play/> 查看短视频作品</a></div><p className="mt-5 text-[10px] leading-5 text-white/30">当前为静态展示表单。点击咨询按钮将唤起邮件，正式上线时可接入合规表单服务。</p></form></Reveal></div></section>; }
 
-export function HomePage() { const pageRef = useRef<HTMLDivElement>(null); usePortfolioMotion(pageRef); return <div ref={pageRef}><OpeningCurtain/><GlobalAtmosphere/><Header/><main className="relative z-10"><Hero/><About/><Capabilities/><VideoShowcase/><Scenes/><Experience/><Process/><Trust/><Cases/><Contact/></main><footer className="relative z-10 bg-[#111512] py-7 text-white/35"><div className="wrap flex flex-col gap-2 text-[10px] md:flex-row md:justify-between"><p>© 2026 石新雨 · PERSONAL BUSINESS BRAND</p><p>法律及相关服务仅作前期沟通、信息匹配与专业机构协作，不构成结果承诺。</p></div></footer></div>; }
+export function HomePage() { const pageRef = useRef<HTMLDivElement>(null); usePortfolioMotion(pageRef); return <div ref={pageRef}><OpeningCurtain/><ReadingProgress/><GlobalAtmosphere/><Header/><main className="relative z-10"><Hero/><About/><Capabilities/><VideoShowcase/><Scenes/><Experience/><Process/><Trust/><Cases/><Contact/></main><footer className="relative z-10 bg-[#111512] py-7 text-white/35"><div className="wrap flex flex-col gap-2 text-[10px] md:flex-row md:justify-between"><p>© 2026 石新雨 · PERSONAL BUSINESS BRAND</p><p>法律及相关服务仅作前期沟通、信息匹配与专业机构协作，不构成结果承诺。</p></div></footer></div>; }
