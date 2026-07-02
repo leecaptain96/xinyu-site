@@ -87,19 +87,31 @@ function Header() {
 }
 
 function Hero() {
-  return <section id="top" className="paper-surface relative overflow-hidden border-b border-black/10 pt-28">
-    <div className="wrap grid min-h-[730px] items-center gap-10 pb-16 md:grid-cols-[1.04fr_.96fr] lg:gap-12">
-      <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease }}>
-        <Kicker>PERSONAL BRAND · HAIKOU</Kicker>
-        <h1 className="display text-[3.15rem] sm:text-[3.15rem] lg:text-[4.5rem] xl:text-[6.35rem]">让复杂的业务，<br/><em>变成清晰的合作。</em></h1>
-        <p className="mt-7 text-base font-medium leading-8 md:text-lg">法律服务背景｜商务谈判与项目对接｜<br className="hidden sm:block"/>短视频内容表达与企业获客</p>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-black/55">我长期服务于企业客户、个体经营者与合作机构，擅长在法律服务、商务沟通、项目资源和内容传播之间建立连接。先理解业务、梳理需求、匹配路径、推进合作，让一次沟通真正走到结果。</p>
-        <div className="mt-8 flex flex-wrap gap-3"><a className="btn-dark" href="#capabilities">查看合作方向 <Arrow/></a><a className="btn-line" href="#videos"><Play/> 查看短视频作品</a></div>
+  return <section id="top" className="paper-surface relative overflow-hidden border-b border-black/10 pt-24 md:pt-28">
+    <div className="wrap pb-12 md:pb-16">
+      <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease }} className="hero-editorial relative overflow-hidden rounded-[2rem] bg-[#17221c] text-white shadow-[0_35px_90px_rgba(28,36,31,.16)] md:rounded-[2.5rem]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between border-b border-white/10 px-6 py-5 md:px-9"><span className="text-[10px] font-semibold tracking-[.28em] text-white/65">SHI XINYU · PERSONAL BRAND</span><span className="text-[9px] tracking-[.2em] text-white/35">HAIKOU / 2026</span></div>
+        <div className="grid min-h-[700px] md:grid-cols-[1.08fr_.92fr]">
+          <div className="relative z-10 flex flex-col justify-end px-6 pb-10 pt-28 md:px-9 md:pb-12 lg:px-12 lg:pb-14">
+            <div className="absolute left-6 top-28 text-[clamp(4.5rem,11vw,10.5rem)] font-semibold leading-none tracking-[-.09em] text-white/[.035] md:left-9">CONNECT</div>
+            <Kicker light>BUSINESS · LEGAL SERVICE · CONTENT</Kicker>
+            <h1 className="display max-w-3xl text-[3rem] sm:text-[3.5rem] lg:text-[5rem] xl:text-[6rem]">让复杂的业务，<br/><em className="!text-[#b7c4ba]">变成清晰的合作。</em></h1>
+            <p className="mt-7 max-w-xl text-sm font-medium leading-7 text-white/75 md:text-base">法律服务背景｜商务谈判与项目对接｜短视频内容表达与企业获客</p>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/45">先理解业务，再梳理需求、匹配路径、推进合作，让一次沟通真正走到结果。</p>
+            <div className="mt-8 flex flex-wrap gap-3"><a className="btn-light" href="#capabilities">查看合作方向 <Arrow/></a><a className="btn-ghost" href="#videos"><Play/> 短视频作品</a></div>
+            <div className="mt-10 grid grid-cols-3 border-t border-white/10 pt-5 text-[9px] tracking-[.14em] text-white/35"><span>01 / 理解需求</span><span>02 / 连接资源</span><span>03 / 推进落地</span></div>
+          </div>
+          <motion.div initial={false} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: .12, ease }} className="relative min-h-[580px] overflow-hidden md:min-h-full"><HeroConnections/>
+            <Image src="/images/shi-xinyu-hero.png" alt="石新雨商务形象照片" fill priority className="object-cover object-top" sizes="(max-width:768px) 100vw,46vw"/>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#17221c]/85 via-transparent to-black/10 md:bg-gradient-to-r md:from-[#17221c] md:via-transparent md:to-transparent"/>
+            <div className="absolute bottom-7 left-6 right-6 z-10 flex items-end justify-between md:left-auto md:right-7"><div><small className="tracking-[.2em] text-white/50">BUSINESS CONNECTOR</small><p className="mt-2 text-xl font-semibold">石新雨 / SHI XINYU</p></div><span className="rounded-full border border-white/25 bg-black/15 px-3 py-2 text-[10px] backdrop-blur">海口</span></div>
+          </motion.div>
+        </div>
       </motion.div>
-      <motion.div initial={false} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: .15, ease }} className="relative mx-auto w-full max-w-[610px]"><HeroConnections/>
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#d6cdbf] shadow-2xl md:rounded-[3rem]"><Image src="/images/shi-xinyu-hero.png" alt="石新雨商务形象照片" fill priority className="object-cover object-top" sizes="(max-width:1024px) 90vw,45vw"/><div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"/><div className="absolute inset-x-6 bottom-6 flex items-end justify-between text-white"><div><small className="tracking-[.2em] text-white/55">BUSINESS · LEGAL · CONTENT</small><p className="mt-2 text-2xl font-semibold">石新雨 / SHI XINYU</p></div><span className="rounded-full border border-white/30 px-3 py-2 text-xs">商务形象</span></div></div>
-        {[['法律服务背景','-left-3 top-[12%] bg-white text-ink md:-left-14'],['商务谈判与客户沟通','-right-2 top-[28%] bg-ink text-white md:-right-12'],['短视频内容表达','-left-2 bottom-[21%] bg-moss text-white md:-left-10'],['企业资源链接与项目推进','right-3 bottom-[8%] bg-wine text-white md:-right-8']].map(([t,c])=><div key={t} className={`absolute rounded-2xl px-4 py-3 text-xs font-medium shadow-xl backdrop-blur ${c}`}>{t}</div>)}
-      </motion.div>
+      <Reveal className="grid gap-8 border-b border-black/10 py-10 md:grid-cols-[1.2fr_.8fr] md:items-end md:py-14">
+        <h2 className="text-3xl font-semibold leading-[1.05] tracking-[-.055em] md:text-5xl lg:text-6xl">懂业务逻辑，懂老板沟通，<br/><span className="text-moss">也懂怎么把内容变成客户线索。</span></h2>
+        <div><p className="text-sm leading-7 text-black/55">我的角色不是单一销售，也不是只做内容，而是在客户需求、专业服务、合作资源与内容表达之间建立连接。</p><p className="mt-4 text-[10px] tracking-[.18em] text-black/35">COMMUNICATE · CONNECT · DELIVER</p></div>
+      </Reveal>
     </div>
     <div className="overflow-hidden border-y border-black/10 bg-[#e6dfd3] py-4"><div className="marquee">{[...marquee,...marquee].map((x,i)=><span key={i}>✦ {x}</span>)}</div></div>
     <div className="wrap grid grid-cols-2 md:grid-cols-4">{heroStats.map(([v,l])=><div key={l} className="border-r border-black/10 py-8 last:border-0 md:py-11"><b className="block text-4xl tracking-[-.06em] md:text-6xl">{v}</b><span className="mt-2 block text-xs text-black/45">{l}</span></div>)}</div>
