@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f3f0e9;
+  --ink: #20211e;
+  --moss: #44584a;
+  --wine: #744c4b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #44584a;
+  color: #fff;
+}
+
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a {
+  outline-offset: 4px;
+}
+
+.page-grid {
+  background-image:
+    linear-gradient(to right, rgba(32, 33, 30, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(32, 33, 30, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.paper-noise::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.video-green { background: linear-gradient(150deg, #738176 0%, #354139 55%, #1d211e 100%); }
+.video-wine { background: linear-gradient(145deg, #a17b73 0%, #6f4646 48%, #342728 100%); }
+.video-sand { background: linear-gradient(145deg, #ded4c4 0%, #ab9680 52%, #635549 100%); }
+.video-dark { background: linear-gradient(145deg, #6c6f68 0%, #353934 50%, #161815 100%); }
+
+.video-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(255,255,255,.22), transparent 25%),
+    linear-gradient(to top, rgba(9,10,9,.78), transparent 54%);
+}
+
+.video-card::after {
+  position: absolute;
+  top: 12%;
+  right: -12%;
+  width: 72%;
+  aspect-ratio: 1;
+  content: "";
+  z-index: 1;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 9999px;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+
+.marquee.reverse {
+  animation-direction: reverse;
+  animation-duration: 40s;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

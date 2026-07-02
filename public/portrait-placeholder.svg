@@ -1,0 +1,27 @@
+<svg width="1200" height="1500" viewBox="0 0 1200 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- REPLACE THIS FILE with Shi Xinyu's real lifestyle business portrait. Keep a 4:5 ratio. -->
+  <defs>
+    <linearGradient id="bg" x1="80" y1="20" x2="1120" y2="1450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9D0C2"/>
+      <stop offset="0.55" stop-color="#B3A792"/>
+      <stop offset="1" stop-color="#6D796D"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="500" y1="700" x2="750" y2="1440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#323934"/>
+      <stop offset="1" stop-color="#18201B"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="50"/></filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <circle cx="1020" cy="230" r="280" fill="#F0E9DF" fill-opacity=".35" filter="url(#blur)"/>
+  <path d="M0 1080C210 990 360 1010 550 1110C790 1235 935 1180 1200 1020V1500H0V1080Z" fill="#5B685E" fill-opacity=".72"/>
+  <ellipse cx="606" cy="470" rx="212" ry="258" fill="#D4AD92"/>
+  <path d="M399 475C388 311 474 184 616 186C765 188 839 304 815 489C754 422 715 346 683 276C593 386 497 456 399 475Z" fill="#302924"/>
+  <path d="M427 452C432 629 505 723 608 729C721 735 797 631 795 454C754 401 714 338 684 276C598 378 511 437 427 452Z" fill="#D4AD92"/>
+  <path d="M516 692H704L745 825H476L516 692Z" fill="#CAA187"/>
+  <path d="M178 1500C210 1072 337 794 513 750L606 859L703 750C897 802 1004 1060 1035 1500H178Z" fill="url(#coat)"/>
+  <path d="M513 750L606 859L511 1011L418 810L513 750Z" fill="#F1EEE7"/>
+  <path d="M703 750L606 859L701 1011L798 814L703 750Z" fill="#ECE9E1"/>
+  <rect x="54" y="55" width="1092" height="1390" rx="530" stroke="#F7F3EB" stroke-opacity=".35" stroke-width="2"/>
+  <text x="86" y="1400" fill="#F5F0E7" fill-opacity=".75" font-family="Arial, sans-serif" font-size="20" letter-spacing="5">PORTRAIT PLACEHOLDER · 4:5</text>
+</svg>
